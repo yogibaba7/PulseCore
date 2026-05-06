@@ -21,12 +21,12 @@ jobs:
 
       - name: run pipeline 
         env:
-          PULSECORE_PAT : ${{PULSECORE_PAT}}
+          PULSECORE_PAT: ${{PULSECORE_PAT}}
           PULSECORE_USERNAME: ${{PULSECORE_USERNAME}}
 
         run: |
           dvc repro
-          
+
 
 
 
