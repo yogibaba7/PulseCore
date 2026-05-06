@@ -14,4 +14,22 @@ stages:
     outs:
       - data/processed
 
+  feature_engineering:
+    cmd: python src/features/feature_engineering.py
+    deps:
+      - src/features/feature_engineering.py
+      - data/processed
+    outs:
+      - data/interim
+      - models/vector.joblib
+      - models/resampler.joblib
+
+  model_building:
+    cmd: python src/model/model_building.py
+    deps:
+      - src/model/model_building.py
+      - data/interim
+    outs:
+      - models/LGBMClassifier.joblib
+    
     
