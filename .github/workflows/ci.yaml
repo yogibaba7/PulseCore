@@ -1,0 +1,32 @@
+
+name: ci_workflows
+
+on: push
+
+jobs:
+  run_dvc_pipeline:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: code checkout
+        uses: actions/checkout@v3
+      
+      - name: python setup
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
+      - name: install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: run pipeline 
+        env:
+          PULSECORE_PAT : ${{PULSECORE_PAT}}
+          PULSECORE_USERNAME: ${{PULSECORE_USERNAME}}
+
+        run: |
+          dvc repro
+          
+
+
+
