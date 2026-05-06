@@ -1,2 +1,4 @@
+[core]
+    remote = pc_data_store
 ['remote "pc_data_store"']
     url = s3://pulsecore-dvc-store
