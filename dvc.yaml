@@ -32,4 +32,14 @@ stages:
     outs:
       - models/LGBMClassifier.joblib
     
-    
+  model_evaluation:
+    cmd: python src/model/model_evaluation.py
+    deps:
+      - src/model/model_evaluation.py
+      - data/interim
+
+  model_registry:
+    cmd: python src/model/register_model.py
+    deps:
+      - src/model/register_model.py
+      - reports/model_info.json

@@ -5,12 +5,12 @@ stages:
     deps:
     - path: src/datas/data_ingestion.py
       hash: md5
-      md5: 117206707b2cfee0f9db159719a1d9e7
-      size: 3039
+      md5: bb4e1f8e41f7020ee33c2461ba3181d2
+      size: 3043
     outs:
     - path: data/raw
       hash: md5
-      md5: 18b0ba80ec0712c401c27b31a9fe7ed8.dir
+      md5: b3cc5d7da26aa91fc5ba39a2a32fb7ce.dir
       size: 6926205
       nfiles: 2
   data_preprocessing:
@@ -18,7 +18,7 @@ stages:
     deps:
     - path: data/raw
       hash: md5
-      md5: 18b0ba80ec0712c401c27b31a9fe7ed8.dir
+      md5: b3cc5d7da26aa91fc5ba39a2a32fb7ce.dir
       size: 6926205
       nfiles: 2
     - path: src/datas/data_preprocessing.py
@@ -28,16 +28,16 @@ stages:
     outs:
     - path: data/processed
       hash: md5
-      md5: d38ecc48e7b840e6829975b3114c061f.dir
-      size: 5124466
+      md5: 483a9e9b7e87d3cda293df7a62262e4f.dir
+      size: 5123535
       nfiles: 2
   feature_engineering:
     cmd: python src/features/feature_engineering.py
     deps:
     - path: data/processed
       hash: md5
-      md5: d38ecc48e7b840e6829975b3114c061f.dir
-      size: 5124466
+      md5: 483a9e9b7e87d3cda293df7a62262e4f.dir
+      size: 5123535
       nfiles: 2
     - path: src/features/feature_engineering.py
       hash: md5
@@ -46,24 +46,24 @@ stages:
     outs:
     - path: data/interim
       hash: md5
-      md5: 48eb00a870ca6596ccac8e0a997fd5d0.dir
-      size: 6737026
+      md5: 83a481838a8f8d7f0e0b4bc02da4850d.dir
+      size: 6960530
       nfiles: 4
     - path: models/resampler.joblib
       hash: md5
-      md5: 85e7b256e9d9c1bd6f5b922b918cc0ea
-      size: 1568142
+      md5: d0d5287c8b148a033b8a6677d7848c97
+      size: 1764174
     - path: models/vector.joblib
       hash: md5
-      md5: 0c0d248e2fdff07fb62733d461e1cb1d
-      size: 383985
+      md5: a45717ffce2b1d96767d4f138d2dcc0d
+      size: 383831
   model_building:
     cmd: python src/model/model_building.py
     deps:
     - path: data/interim
       hash: md5
-      md5: 48eb00a870ca6596ccac8e0a997fd5d0.dir
-      size: 6737026
+      md5: 83a481838a8f8d7f0e0b4bc02da4850d.dir
+      size: 6960530
       nfiles: 4
     - path: src/model/model_building.py
       hash: md5
@@ -72,5 +72,28 @@ stages:
     outs:
     - path: models/LGBMClassifier.joblib
       hash: md5
-      md5: f66e37fae93b9945d0a59738041dbe9b
-      size: 7180988
+      md5: 85292ccb56222660b3e754eb9fb917d8
+      size: 7457148
+  model_evaluation:
+    cmd: python src/model/model_evaluation.py
+    deps:
+    - path: data/interim
+      hash: md5
+      md5: 83a481838a8f8d7f0e0b4bc02da4850d.dir
+      size: 6960530
+      nfiles: 4
+    - path: src/model/model_evaluation.py
+      hash: md5
+      md5: 4a9ab379203cd9833a176f672ec8acac
+      size: 8167
+  model_registry:
+    cmd: python src/model/register_model.py
+    deps:
+    - path: reports/model_info.json
+      hash: md5
+      md5: 81ff4066ed3a5e3f507bff07a311ff5a
+      size: 105
+    - path: src/model/register_model.py
+      hash: md5
+      md5: cdcdcff7dca1cc6f7b071c0ec9bececf
+      size: 2765

@@ -9,6 +9,7 @@ import yaml
 from sklearn.model_selection import train_test_split
 
 
+
 # configure logging
 logger = logging.getLogger('Data_ingestion_log')
 logger.setLevel(logging.DEBUG)
@@ -59,6 +60,7 @@ def create_train_test_set(data:pd.DataFrame):
     
     except Exception as e:
         logger.error(f"error occured -> {e}")
+
 
 # save data 
 def save_data(data:pd.DataFrame,save_path:str,save_name:str):
