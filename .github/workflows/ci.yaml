@@ -26,6 +26,16 @@ jobs:
 
         run: |
           dvc repro
+  
+      - name: Model testing
+        env:
+          PULSECORE_PAT: ${{secrets.PULSECORE_PAT}}
+          PULSECORE_USERNAME: ${{secrets.PULSECORE_USERNAME}}
+        
+        run: |
+          python tests/model_testing.py
+          
+          
 
 
 
