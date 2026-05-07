@@ -34,8 +34,16 @@ jobs:
         
         run: |
           python tests/model_testing.py
-          
-          
+
+      - name: Model Promotion to Production
+        if: success()
+        env:
+          PULSECORE_PAT: ${{secrets.PULSECORE_PAT}}
+          PULSECORE_USERNAME: ${{secrets.PULSECORE_USERNAME}}
+        run: |
+          python scripts/model_promotion.py     
+        
+        
 
 
 
