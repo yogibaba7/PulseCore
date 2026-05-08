@@ -12,7 +12,8 @@ from nltk.corpus import stopwords
 nltk.download('stopwords')
 from nltk.stem import WordNetLemmatizer
 nltk.download('wordnet')
-
+stop_words = set(stopwords.words('english')) - {'not', 'but', 'however', 'no', 'yet'}
+lemmatizor = WordNetLemmatizer()
 
 # BASIC PREPROCESSING
 def Basic_Preprocessing(text:str)->str:
@@ -41,30 +42,29 @@ def Basic_Preprocessing(text:str)->str:
 
 # remove stop words
 def remove_stop_words(text):
-    try:
-        stop_words = set(stopwords.words('english')) - {'not', 'but', 'however', 'no', 'yet'}
-        text = " ".join([word for word in text.split() if word.lower() not in stop_words])
-        return text
-    except Exception as e:
-        print(f"Error -> {e}")
-        return text
+
+    return " ".join(
+
+        word for word in text.split()
+
+        if word.lower() not in stop_words
+    )
     
-# lemmatizations
-def lemmatizor(text):
-    try:
-        lemmatizor = WordNetLemmatizer()
-        text = " ".join([lemmatizor.lemmatize(word) for word in text.split()])
-        return text
-    except Exception as e:
-        print(f"Error -> {e}")
-        return text
+# # lemmatizations
+# def ApplyLemmatizations(text):
+#     try:
+        
+#         text = " ".join([lemmatizor.lemmatize(word) for word in text.split()])
+#         return text
+#     except Exception as e:
+#         print(f"Error -> {e}")
+#         return text
 
 
 def MainPreprocess(text:str)-> str:
-    print('apply basic preprocessing')
+    
     text = Basic_Preprocessing(text)
-    print("Removing Stop word")
+    
     text = remove_stop_words(text)
-    print("Apply Lemmatization")
-    text = lemmatizor(text)
+    
     return text
