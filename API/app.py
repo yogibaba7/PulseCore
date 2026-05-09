@@ -7,6 +7,7 @@ from pydantic import BaseModel, computed_field, Field
 from typing import Annotated,List
 
 import requests
+from collections import Counter
 
 from Preprocessing import MainPreprocess
 from Load_Model import LoadVector, LoadModel
@@ -359,10 +360,75 @@ def AnalyzeVideo(data: VedioRequest):
         1
     )
 
+    # =====================================
+    # AVERAGE WORDS PER COMMENT
+    # =====================================
 
+    total_words = sum(
+
+        len(comment.split())
+
+        for comment in comments
+    )
+
+
+    avg_words_per_comment = round(
+
+        total_words / len(comments),
+
+        1
+    )
+
+    # =====================================
+    # WORD CLOUD DATA
+    # =====================================
+    custom_stopwords = {
+
+        "this",
+        "that",
+        "with",
+        "from",
+        "video",
+        "have",
+        "they",
+        "your",
+        "just",
+        "about"
+    }
+
+    # Combine all comments
+    all_text = " ".join(comments)
+
+
+    # Split into words
+    words = all_text.lower().split()
+
+
+    # Remove short words
+    words = [
+
+        word
+
+        for word in words
+
+        if len(word) > 3 and word not in custom_stopwords
+    ]
+
+
+    # Count frequency
+    word_counts = Counter(words)
+
+
+    # Get top 30 words
+    top_words = word_counts.most_common(50)
+    print(top_words)
     return JSONResponse(
 
         content={
+            "top_words": top_words,
+
+            "avg_words_per_comment":
+                avg_words_per_comment,
 
             "total_comments":
                 total_comments,
