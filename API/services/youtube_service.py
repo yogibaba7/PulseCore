@@ -33,8 +33,19 @@ def fetch_comments(video_id: str, max_comments: int = 200):
                 ["topLevelComment"]
                 ["snippet"]
                 ["textDisplay"]
+               
             )
-            all_comments.append(comment)
+            published_at = (
+                item["snippet"]
+                ["topLevelComment"]
+                ["snippet"]
+                ["publishedAt"]
+            )
+            all_comments.append({
+                "comment": comment,
+                "published_at": published_at
+            })
+
 
         next_page_token = data.get("nextPageToken")
 

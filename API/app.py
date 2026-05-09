@@ -13,6 +13,8 @@ from services.analytics_service import (
     calculate_kpis,
 )
 from services.wordcloud_service import generate_wordcloud
+from services.trend_service import generate_monthly_trend
+
 from Preprocessing import MainPreprocess
 
 app = FastAPI()
@@ -41,22 +43,24 @@ def predict(data: UserComment):
 def analyze_video(data: VideoRequest):
     comments = fetch_comments(data.VedioId)
     total_comments = fetch_total_comment_count(data.VedioId)
-    processed_comments = [MainPreprocess(comment) for comment in comments]
-    
+    processed_comments = [MainPreprocess(comment['comment']) for comment in comments]
+
     results = predict_comments(comments)
 
     summary = calculate_sentiment_summary(results)
-    kpis = calculate_kpis(comments)
+    kpis = calculate_kpis(processed_comments)
 
     
     top_words = generate_wordcloud(processed_comments)
-    # trend_data = generate_trend(results)
+    
+    trend_data = generate_monthly_trend(results)
+
 
     return {
         "total_comments": total_comments,
         "results": results[:5],
         "top_words": top_words,
-        # "trend_data": trend_data,
+        "trend_data": trend_data,
         **summary,
         **kpis,
     }
