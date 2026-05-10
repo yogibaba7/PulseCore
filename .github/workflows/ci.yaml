@@ -19,7 +19,7 @@ jobs:
         run: |
           pip install -r requirements.txt
 
-      - name: run pipeline 
+      - name: run_pipeline 
         env:
           PULSECORE_PAT: ${{secrets.PULSECORE_PAT}}
           PULSECORE_USERNAME: ${{secrets.PULSECORE_USERNAME}}
@@ -56,17 +56,6 @@ jobs:
         run: |
           git push origin ${{ github.ref_name }}
 
-
-
-
-
-
-
-
-
-
-        run: |
-          dvc repro
   
       - name: Model testing
         env:
