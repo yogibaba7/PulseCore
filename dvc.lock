@@ -55,7 +55,7 @@ stages:
       size: 1764174
     - path: models/vector.joblib
       hash: md5
-      md5: 42763fcdd42b27fe801df0e241896936
+      md5: 88e645a2af5bd39e3b1c5d14a48488d0
       size: 383831
   model_building:
     cmd: python src/model/model_building.py
