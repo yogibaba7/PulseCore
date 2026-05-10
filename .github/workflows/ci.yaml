@@ -71,7 +71,18 @@ jobs:
           PULSECORE_PAT: ${{secrets.PULSECORE_PAT}}
           PULSECORE_USERNAME: ${{secrets.PULSECORE_USERNAME}}
         run: |
-          python scripts/model_promotion.py     
+          python scripts/model_promotion.py   
+
+      - name: API Testing
+        env:
+          PULSECORE_PAT: ${{secrets.PULSECORE_PAT}}
+          PULSECORE_USERNAME: ${{secrets.PULSECORE_USERNAME}}
+        # export PYTHONPATH=$PWD adding current directory as part of the module search path.
+        run: |
+          export PYTHONPATH=$PWD 
+          pytest tests/test_app.py tests/test_services.py
+
+        
         
         
 

@@ -1,21 +1,21 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from schemas import UserComment, VideoRequest
+from API.schemas import UserComment, VideoRequest
 
-from services.youtube_service import (
+from API.services.youtube_service import (
     fetch_comments,
     fetch_total_comment_count,
 )
-from services.prediction_service import predict_comments
-from services.analytics_service import (
+from API.services.prediction_service import predict_comments
+from API.services.analytics_service import (
     calculate_sentiment_summary,
     calculate_kpis,
 )
-from services.wordcloud_service import generate_wordcloud
-from services.trend_service import generate_monthly_trend
+from API.services.wordcloud_service import generate_wordcloud
+from API.services.trend_service import generate_monthly_trend
 
-from Preprocessing import MainPreprocess
+from API.Preprocessing import MainPreprocess
 
 app = FastAPI()
 

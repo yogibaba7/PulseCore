@@ -1,6 +1,6 @@
 
-from Preprocessing import MainPreprocess
-from Load_Model import LoadModel, LoadVector
+from API.Preprocessing import MainPreprocess
+from API.Load_Model import LoadModel, LoadVector
 
 
 model = LoadModel("PULSECORE_MODEL", "Production")
