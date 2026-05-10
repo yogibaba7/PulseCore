@@ -23,6 +23,8 @@ jobs:
         env:
           PULSECORE_PAT: ${{secrets.PULSECORE_PAT}}
           PULSECORE_USERNAME: ${{secrets.PULSECORE_USERNAME}}
+        run: |
+          dvc repro
 
 
       - name: Push DVC-tracked data to remote
