@@ -73,6 +73,7 @@ jobs:
         run: |
           python scripts/model_promotion.py   
 
+
       - name: API Testing
         env:
           PULSECORE_PAT: ${{secrets.PULSECORE_PAT}}
@@ -82,6 +83,28 @@ jobs:
           export PYTHONPATH=$PWD 
           pytest tests/test_app.py tests/test_services.py
 
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACESS_KEY_ECR }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_ECR }}
+          aws-region: eu-north-1
+      
+      - name: Login to aws ECR
+        run: |
+          aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin 128529977235.dkr.ecr.eu-north-1.amazonaws.com
+
+      - name: Build docker image
+        run: |
+          docker build -t pulsecore_dockerimg_repo .
+
+      - name: Tag Docker image
+        run: |
+          docker tag pulsecore_dockerimg_repo:latest 128529977235.dkr.ecr.eu-north-1.amazonaws.com/pulsecore_dockerimg_repo:latest
+      
+      - name: push image to ECR
+        run: | 
+          docker push 128529977235.dkr.ecr.eu-north-1.amazonaws.com/pulsecore_dockerimg_repo:latest
         
         
         
