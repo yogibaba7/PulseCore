@@ -110,12 +110,12 @@ git clone https://github.com/yogibaba7/PULSECORE_FRONTEND
 
 ## Screenshots
 
-```markdown
+
 ![KPI](assets/sc1.png)
 ![SentimentDist](assets/sc2.png)
 ![Word Cloud & Trend Chart](assets/sc3.png)
 ![Comment Wise Sentiment](assets/sc4.png)
-```
+
 ---
 ## Experiment Tracking
 
