@@ -1,5 +1,4 @@
-# PulseCore: AI-Powered YouTube Comment Sentiment Analysis
-
+# PulseCore: A Chrome extension For Youtube Comments Sentiment Analysis
 > A production-ready Chrome extension and MLOps platform that analyzes YouTube comments and delivers actionable insights for content creators using machine learning.
 
 ![Version](https://img.shields.io/badge/version-v1.0-blue)
