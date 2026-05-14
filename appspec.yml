@@ -1,13 +1,15 @@
-
 version: 0.0
 os: linux
 
 files:
-  - source: /
+  - source: .env
     destination: /home/ubuntu/app
 
+  - source: deploy/scripts
+    destination: /home/ubuntu/app/deploy/scripts
+
 hooks:
-  BeforeInstall:
+  AfterInstall:
     - location: deploy/scripts/install_dependencies.sh
       timeout: 300
       runas: ubuntu

@@ -105,7 +105,37 @@ jobs:
       - name: push image to ECR
         run: | 
           docker push 128529977235.dkr.ecr.eu-north-1.amazonaws.com/pulsecore_dockerimg_repo:latest
-        
+
+      - name: Create .env file
+        if: success()
+        run: |
+          cat > .env << EOF
+          YOUTUBEAPI_KEY=${{ secrets.PULSECORE_YT_API }}
+          PULSECORE_PAT=${{ secrets.PULSECORE_PAT }}
+          PULSECORE_USERNAME=${{ secrets.PULSECORE_USERNAME }}
+          EOF
+
+      - name: Create deployment bundle
+        if: success()
+        run: |
+          zip -r deployment.zip appspec.yml deploy .env
+
+      - name: Upload deployment bundle to S3
+        if: success()
+        run: |
+          aws s3 cp deployment.zip s3://pulsecoreappdeploymentscript/deployment.zip
+
+      - name: Trigger CodeDeploy deployment
+        if: success()
+        run: |
+          aws deploy create-deployment \
+            --application-name mypulsecoreapp \
+            --deployment-group-name mypulsecoreappdeploymentgroup \
+            --deployment-config-name CodeDeployDefault.AllAtOnce \
+            --s3-location bucket=pulsecoreappdeploymentscript,key=deployment.zip,bundleType=zip \
+            --file-exists-behavior OVERWRITE \
+            --region eu-north-1
+              
         
         
 
