@@ -13,5 +13,5 @@ docker run -d \
   --name mypulsecore-app \
   --restart unless-stopped \
   --env-file /home/ubuntu/app/.env \
-  -p 8000:8000 \
+  -p 80:8000 \
   128529977235.dkr.ecr.eu-north-1.amazonaws.com/pulsecore_dockerimg_repo:latest
