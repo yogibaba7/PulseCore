@@ -7,7 +7,7 @@ load_dotenv()
 YOUTUBE_API_KEY = os.getenv("YOUTUBEAPI_KEY")
 
 
-def fetch_comments(video_id: str, max_comments: int = 200):
+def fetch_comments(video_id: str, max_comments: int = 500):
     all_comments = []
     next_page_token = None
 
@@ -17,7 +17,7 @@ def fetch_comments(video_id: str, max_comments: int = 200):
         params = {
             "part": "snippet",
             "videoId": video_id,
-            "maxResults": 50,
+            "maxResults": 100,
             "key": YOUTUBE_API_KEY,
         }
 
